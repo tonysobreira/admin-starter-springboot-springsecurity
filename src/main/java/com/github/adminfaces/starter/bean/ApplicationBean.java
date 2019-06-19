@@ -19,26 +19,27 @@ public class ApplicationBean extends BaseBean implements Serializable {
 
 	private static Map<String, Object> appMap = new HashMap<String, Object>();
 
-	@PostConstruct
-	public void init() {
-		List<Authority> authList = getFacade().findAllAuthority();
-		Authority auth;
-
-		if (authList.isEmpty()) {
-			auth = new Authority();
-			auth.setAuthority("ROLE_ADMIN");
-
-			getFacade().save(auth);
-
-			auth = new Authority();
-			auth.setAuthority("ROLE_USER");
-
-			getFacade().save(auth);
-		}
-
-	}
+//	@PostConstruct
+//	public void init() {
+//		List<Authority> authList = getFacade().findAllAuthority();
+//		Authority auth;
+//
+//		if (authList.isEmpty()) {
+//			auth = new Authority();
+//			auth.setAuthority("ROLE_ADMIN");
+//
+//			getFacade().save(auth);
+//
+//			auth = new Authority();
+//			auth.setAuthority("ROLE_USER");
+//
+//			getFacade().save(auth);
+//		}
+//
+//	}
 
 	public ApplicationBean() {
+		
 	}
 
 	public static Map<String, Object> getAppMap() {
