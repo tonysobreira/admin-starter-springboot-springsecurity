@@ -8,7 +8,7 @@
 	<groupId>com.github.adminfaces</groupId>
 	<artifactId>admin-starter</artifactId>
 	<version>0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>admin-starter</name>
 
 	<parent>
