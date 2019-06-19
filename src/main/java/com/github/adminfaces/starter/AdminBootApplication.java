@@ -16,7 +16,8 @@
 
 package com.github.adminfaces.starter;
 
-import com.github.adminfaces.starter.bean.ApplicationBean;
+import com.github.adminfaces.starter.facade.Facade;
+import com.github.adminfaces.starter.model.Authority;
 import com.github.adminfaces.starter.model.Car;
 import com.github.adminfaces.starter.util.Utils;
 import java.util.List;
@@ -38,11 +39,26 @@ public class AdminBootApplication {
     }
     
     @Inject
-    private ApplicationBean applicationBean;
+    private Facade facade;
     
     @Bean
-    public void initAuthorities() {
-    	applicationBean.init();
+    public List<Authority> initAuthorities() {
+    	List<Authority> authList = facade.findAllAuthority();
+		Authority auth;
+
+		if (authList.isEmpty()) {
+			auth = new Authority();
+			auth.setAuthority("ROLE_ADMIN");
+
+			facade.save(auth);
+
+			auth = new Authority();
+			auth.setAuthority("ROLE_USER");
+
+			facade.save(auth);
+		}
+		
+		return authList;
     }
 	
 }
