@@ -16,6 +16,7 @@
 
 package com.github.adminfaces.starter;
 
+import com.github.adminfaces.starter.bean.ApplicationBean;
 import com.github.adminfaces.starter.model.Car;
 import com.github.adminfaces.starter.util.Utils;
 import java.util.List;
@@ -34,6 +35,14 @@ public class AdminBootApplication {
     @Bean
     public List<Car> getCars() {
         return utils.getCars();
+    }
+    
+    @Inject
+    private ApplicationBean applicationBean;
+    
+    @Bean
+    public void initAuthorities() {
+    	applicationBean.init();
     }
 	
 }

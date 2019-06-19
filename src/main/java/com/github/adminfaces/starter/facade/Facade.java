@@ -16,6 +16,8 @@ public interface Facade {
 	public User saveUser(User user);
 
 	public void deleteUser(User user);
+	
+	public Authority save(Authority authority);
 
 	public List<Authority> findAllAuthority();
 

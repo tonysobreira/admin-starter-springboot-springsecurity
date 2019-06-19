@@ -183,4 +183,9 @@ public class FacadeImpl implements Facade {
 		return bitcoinService.findAll();
 	}
 
+	@Override
+	public Authority save(Authority authority) {
+		return authorityService.save(authority);
+	}
+
 }

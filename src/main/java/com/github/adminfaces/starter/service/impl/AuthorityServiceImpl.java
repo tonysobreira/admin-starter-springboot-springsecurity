@@ -43,4 +43,9 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return authority;
 	}
 
+	@Override
+	public Authority save(Authority authority) {
+		return authorityDao.save(authority);
+	}
+
 }
