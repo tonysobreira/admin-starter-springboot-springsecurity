@@ -16,7 +16,6 @@
 
 package com.github.adminfaces.starter;
 
-import com.github.adminfaces.starter.bean.ApplicationBean;
 import com.github.adminfaces.starter.facade.Facade;
 import com.github.adminfaces.starter.model.Authority;
 import com.github.adminfaces.starter.model.Car;

@@ -11,9 +11,10 @@
 				<span>Home</span>
 			</p:link></li>
 		<li class="header">General</li>
+		
 		<sec:authorize access="hasAnyRole('ADMIN', 'USER')">
 			<li class="treeview"><a href="#"><i
-					class="fa fa-file-text-o"></i> <span>Cars</span> <i
+					class="fa fa-car-side"></i> <span>Cars</span> <i
 					class="fa fa-angle-left pull-right"></i> </a>
 				<ul class="treeview-menu">
 					<li><p:link outcome="/user/car-list">
@@ -26,16 +27,17 @@
 						</p:link></li>
 				</ul></li>
 		</sec:authorize>
+		
 		<sec:authorize access="hasRole('ADMIN')">
 			<li><p:link outcome="/admin/admin">
-					<i class="fa fa-car"></i>
+					<i class="fas fa-coffee"></i>
 					<span>Admin</span>
 				</p:link></li>
 		</sec:authorize>
 		
 		<li>
 			<p:link outcome="/user/start-page">
-			<i class="fa fa-car"></i>
+			<i class="fas fa-play"></i>
 			<span>Start Page</span>
 			</p:link>
 		</li>
@@ -108,7 +110,7 @@
 		
 		<li class="treeview">
 			<a href="#">
-				<i class="fa fa-bitcoin"></i>
+				<i class="fa fa-coins"></i>
 				<span>Coins</span>
 				<i class="fa fa-angle-left pull-right"></i>
 			</a>
@@ -116,15 +118,13 @@
 				<li>
 				<p:link outcome="/user/bitcoin">
 					<span>Bitcoin</span>
-					<i class="fa fa-bitcoin pull-right"></i>
+					<i class="fab fa-bitcoin pull-right"></i>
 				</p:link>
 				</li>
-			</ul>
-			<ul class="treeview-menu">
 				<li>
 				<p:link outcome="/user/bitcoin-audit">
 					<span>Bitcoin Audit</span>
-					<i class="fa fa-bitcoin pull-right"></i>
+					<i class="fab fa-bitcoin pull-right"></i>
 				</p:link>
 				</li>
 			</ul>
