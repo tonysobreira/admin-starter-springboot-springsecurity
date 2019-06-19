@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Post form
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+			<f:viewParam name="id" value="#{postBean.post.id}" converter="javax.faces.Long" />
+			<!-- use view action if you are in a Java EE 7 server: <f:viewAction action="#{carFormMB.init()}"/>-->
+<!-- 			<f:event type="preRenderView" listener="#{postBean.init}" /> -->
+		</f:metadata>
+
+		<adm:breadcrumb title="New Post" />
+
+		<h:form id="form" prependId="false">
+
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<div id="main-buttons" class="hidden-sm hidden-xs">
+						<p:commandButton value="Save" action="#{postBean.save}"
+							update="@form" icon="fa fa-check" styleClass="btn-primary" />
+						<p:spacer width="5" />
+						<p:commandButton value="Back" immediate="true"
+							action="post-list?faces-redirect=true" process="@this"
+							icon="fa fa-reply" />
+					</div>
+
+					<p:separator />
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-sm-12 ui-md-2 ui-lg-1">
+							<p:outputLabel for="id" value="ID" />
+						</div>
+						<div class="ui-sm-12 ui-md-4 ui-lg-5">
+							<p:inputText id="id" value="#{postBean.post.id}" size="4"
+								readonly="true" styleClass="form-control" style="width: 100%" />
+						</div>
+
+						<div class="ui-sm-12 ui-md-2 ui-lg-1">
+							<p:outputLabel value="Title" for="inptTitle" />
+						</div>
+						<div class="ui-sm-12 ui-md-4 ui-lg-5">
+							<p:inputText id="inptTitle" value="#{postBean.title}" />
+						</div>
+						
+						<div class="ui-sm-12 ui-md-2 ui-lg-1">
+							<p:outputLabel value="Tags" for="inptTags" />
+						</div>
+						<div class="ui-sm-12 ui-md-4 ui-lg-5">
+							<p:selectCheckboxMenu id="inptTags" value="#{postBean.selectedTags}" 
+					        	label="Tags" multiple="true"
+					            filter="true" filterMatchMode="contains" panelStyle="width:320px" style="width:100%;"
+					            required="true">
+					            <f:selectItems value="#{postBean.tagList}" var="tag" 
+					            	itemLabel="#{tag.name}" itemValue="#{tag}"/>
+				        	</p:selectCheckboxMenu>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				styleClass="box-danger box-solid">
+				<p:commandButton value="Yes" type="button"
+					styleClass="btn-material btn-primary ui-confirmdialog-yes"
+					icon="fa fa-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="btn-material btn-danger ui-confirmdialog-no"
+					icon="fa fa-close" />
+			</p:confirmDialog>
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>

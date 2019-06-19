@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ul class="sidebar-menu tree" data-widget="tree">
+		<li><p:link outcome="/index" onclick="clearBreadCrumbs()">
+				<i class="fa fa-home"></i>
+				<span>Home</span>
+			</p:link></li>
+		<li class="header">General</li>
+		<sec:authorize access="hasAnyRole('ADMIN', 'USER')">
+			<li class="treeview"><a href="#"><i
+					class="fa fa-file-text-o"></i> <span>Cars</span> <i
+					class="fa fa-angle-left pull-right"></i> </a>
+				<ul class="treeview-menu">
+					<li><p:link outcome="/user/car-list">
+							<span>List</span>
+							<i class="fa fa-th-list pull-right"></i>
+						</p:link></li>
+					<li><p:link outcome="/user/car-form">
+							<span>New</span>
+							<i class="fa fa-plus-circle pull-right"></i>
+						</p:link></li>
+				</ul></li>
+		</sec:authorize>
+		<sec:authorize access="hasRole('ADMIN')">
+			<li><p:link outcome="/admin/admin">
+					<i class="fa fa-car"></i>
+					<span>Admin</span>
+				</p:link></li>
+		</sec:authorize>
+		
+		<li>
+			<p:link outcome="/user/start-page">
+			<i class="fa fa-car"></i>
+			<span>Start Page</span>
+			</p:link>
+		</li>
+		
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-tags"></i>
+				<span>Tags</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<p:link outcome="/user/tag-list">
+						<span>List</span>
+						<i class="fa fa-th-list pull-right"></i>
+					</p:link>
+				</li>
+				<li>
+				<p:link outcome="/user/tag-form">
+					<span>New</span>
+					<i class="fa fa-plus-circle pull-right"></i>
+				</p:link>
+				</li>
+			</ul>
+		</li>
+		
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-paste"></i>
+				<span>Posts</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<p:link outcome="/user/post-list">
+						<span>List</span>
+						<i class="fa fa-th-list pull-right"></i>
+					</p:link>
+				</li>
+				<li>
+				<p:link outcome="/user/post-form">
+					<span>New</span>
+					<i class="fa fa-plus-circle pull-right"></i>
+				</p:link>
+				</li>
+			</ul>
+		</li>
+		
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-book"></i>
+				<span>Books</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<p:link outcome="/user/book">
+						<span>List</span>
+						<i class="fa fa-th-list pull-right"></i>
+					</p:link>
+				</li>
+				<li>
+				<p:link outcome="/user/book">
+					<span>New</span>
+					<i class="fa fa-plus-circle pull-right"></i>
+				</p:link>
+				</li>
+			</ul>
+		</li>
+		
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-bitcoin"></i>
+				<span>Coins</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+				<p:link outcome="/user/bitcoin">
+					<span>Bitcoin</span>
+					<i class="fa fa-bitcoin pull-right"></i>
+				</p:link>
+				</li>
+			</ul>
+			<ul class="treeview-menu">
+				<li>
+				<p:link outcome="/user/bitcoin-audit">
+					<span>Bitcoin Audit</span>
+					<i class="fa fa-bitcoin pull-right"></i>
+				</p:link>
+				</li>
+			</ul>
+		</li>
+		
+	</ul>
+
+</ui:composition>

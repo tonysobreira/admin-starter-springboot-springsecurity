@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Bitcoin Audit
+    </ui:define>
+
+	<ui:define name="body">
+
+		<adm:breadcrumb title="Bitcoin Audit" />
+		<h:form>
+		
+			<p:panel id="panelAudit2" legend="Bitcoin Audit">
+				
+				<p:outputLabel for="bitcoins" value="Bitcoins"/>
+	            <p:selectOneMenu id="bitcoins" value="#{bitcoinBean.bitcoinId}" >
+		            <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+		            <f:selectItems value="#{bitcoinBean.list()}" var="b" itemLabel="#{b.owner} - #{b.quantity}" itemValue="#{b.id}" />
+		            
+		            <p:ajax event="change" listener="#{bitcoinBean.onChangeBitcoin}" update="selected panelAudit" />
+	            </p:selectOneMenu>
+	            
+	            <br />
+	            
+	            <p:outputLabel for="selected" />
+	            <h:outputText id="selected" value="Selected id: #{bitcoinBean.bitcoinId}" />
+	            
+	            <br />
+	            <br />
+	            
+				<p:dataTable id="panelAudit" var="b" value="#{bitcoinBean.auditList}" styleClass="box-solid box-primary">
+					<p:column headerText="Id">
+						<h:outputText value="#{b.id}" />
+					</p:column>
+					<p:column headerText="Owner">
+						<h:outputText value="#{b.owner}" />
+					</p:column>
+					<p:column headerText="Price">
+						<h:outputText value="#{b.quantity}" />
+					</p:column>
+					
+					<p:column headerText="Timestamp">
+						<h:outputText value="#{b.timestamp}" >
+							<f:convertDateTime pattern="dd/MM/yyyy - HH:mm:ss"  />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="User name">
+						<h:outputText value="#{b.username}" />
+					</p:column>
+					<p:column headerText="Ip">
+						<h:outputText value="#{b.ip}" />
+					</p:column>
+					
+				</p:dataTable>
+			
+			</p:panel>
+			
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

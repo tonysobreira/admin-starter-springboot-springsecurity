@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+	<ui:define name="metadata">
+        
+        <ui:param name="enableSlideMenu" value="false"/> <!-- disables slide menu (only on this page) on small screens -->
+        <ui:param name="autoShowNavbar" value="false"/> <!-- disables auto show navbar (only on this page) on small devices -->
+        <style type="text/css">
+            .header-right.ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            .ui-button-text-only .ui-button-text {
+                padding: 0.3em 0.4em;
+            }
+
+            .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+                display: none;
+            }
+        </style>
+    </ui:define>
+    
+    <ui:define name="head-end">
+        <ui:param name="renderBreadCrumb" value="true"/>
+    </ui:define>
+    
+    <ui:define name="title">
+    	PrimeFaces Hello World Example
+    </ui:define>
+    
+    <ui:define name="description">
+        This page shows Hello World Example.
+    </ui:define>
+    
+
+    <ui:define name="body">
+		<adm:breadcrumb title="Start Page"/>
+		<div class="authorization-div">
+			<sec:authorize access="hasRole('USER')">
+				<p:outputLabel value="You have the USER role" />
+			</sec:authorize>
+			<br />
+			<sec:authorize access="hasRole('ADMIN')">
+				<p:outputLabel value="You have the ADMIN role" />
+			</sec:authorize>
+			<br />
+			<sec:authorize access="hasRole('ROLE_USER')">
+				<p:outputLabel value="You have the ROLE_USER role" />
+			</sec:authorize>
+			<br />
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<p:outputLabel value="You have the ROLE_ADMIN role" />
+			</sec:authorize>
+			<br />
+		    <sec:anonymous>
+		    	<p:outputLabel value="anonymous" />
+		    </sec:anonymous>
+		    <br />
+		    <sec:authenticated>
+		    	<p:outputLabel value="authenticated" />
+		    </sec:authenticated>
+		    <br />
+		    <sec:fullyAuthenticated>
+		    	<p:outputLabel value="fullyAuthenticated" />
+		    </sec:fullyAuthenticated>
+			
+		</div>
+		
+		<h:form onsubmit="this.action='#{request.contextPath}/logout';" class="logout-form">
+			<p:panelGrid>
+			<p:commandButton value="Logout" ajax="false" />
+			
+			<p:link value="Admin Page" outcome="/admin/admin.xhtml" />
+			</p:panelGrid>
+		</h:form>
+		
+		<br />
+	
+		<h:form>
+		
+			<p:panel header="PrimeFaces Hello World Example">
+				<h:panelGrid columns="2" cellpadding="4">
+	
+					<h:outputText value="First Name: " />
+					<p:inputText value="#{homeBean.firstName}" />
+	
+					<h:outputText value="Last Name: " />
+					<p:inputText value="#{homeBean.lastName}" />
+	
+					<p:commandButton value="Submit" update="greeting" 
+						oncomplete="PF('greetingDialog').show()" />
+						
+				</h:panelGrid>
+			</p:panel>
+			
+			<br />
+			
+			<p:dataTable value="#{homeBean.userList}" var="user"
+				widgetVar="usersTable" paginator="true" 
+	            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	            rowsPerPageTemplate="5,10,15" rows="10" rowKey="#{user.id}"
+	            emptyMessage="No users found with given criteria" stickyHeader="true"
+	            filteredValue="#{homeBean.filteredUsers}">
+			
+				<f:facet name="header">
+					<p:outputPanel>
+                        <h:outputText value="Search all fields:"/>
+                        <p:spacer height="10"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('usersTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+			        List of Users using Spring Data
+			    </f:facet>
+			    
+			    <p:column width="5%" selectionMode="multiple"
+                                  styleClass="align-center"
+                                  priority="1"/>
+			
+				<p:column filterBy="#{user.id}" sortBy="#{user.id}" headerText="id" footerText="contains" filterMatchMode="contains" priority="1">
+					<h:outputText value="#{user.id}" />
+				</p:column>
+				<p:column headerText="email">
+					<h:outputText value="#{user.email}" />
+				</p:column>
+				<p:column headerText="roles">
+					<h:outputText value="#{homeBean.getUserAuthorities(user)}" />
+				</p:column>
+				
+				<f:facet name="footer">
+			        In total there are #{fn:length(homeBean.userList)} users.
+			    </f:facet>
+			
+			</p:dataTable>
+			
+			<p:spacer/>
+			<br />
+			
+			<p:dataTable value="#{homeBean.testEntityManagerHQL()}" var="user">
+			
+				<f:facet name="header">
+			        List of Users using Entity Manager and HQL Query
+			    </f:facet>
+			
+				<p:column headerText="id">
+					<h:outputText value="#{user.id}" />
+				</p:column>
+				<p:column headerText="email">
+					<h:outputText value="#{user.email}" />
+				</p:column>
+				<p:column headerText="roles">
+					<h:outputText value="#{homeBean.getUserAuthorities(user)}" />
+				</p:column>
+				
+				<f:facet name="footer">
+			        In total there are #{fn:length(homeBean.userList)} users.
+			    </f:facet>
+			
+			</p:dataTable>
+			
+			<br />
+			
+			<p:dataTable value="#{homeBean.testEntityManagerNative()}" var="user">
+			
+				<f:facet name="header">
+			        List of Users using Entity Manager and Native Query
+			    </f:facet>
+			
+				<p:column headerText="id">
+					<h:outputText value="#{user.id}" />
+				</p:column>
+				<p:column headerText="email">
+					<h:outputText value="#{user.email}" />
+				</p:column>
+				<p:column headerText="roles">
+					<h:outputText value="#{homeBean.getUserAuthorities(user)}" />
+				</p:column>
+				
+				<f:facet name="footer">
+			        In total there are #{fn:length(homeBean.userList)} users.
+			    </f:facet>
+			
+			</p:dataTable>
+	
+			<p:dialog header="Greeting" widgetVar="greetingDialog" modal="true"
+				resizable="false">
+				<h:panelGrid id="greeting" columns="1" cellpadding="4">
+					<h:outputText value="#{homeBean.showGreeting()}" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+	
+</ui:composition>
+

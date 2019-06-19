@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Bitcoin
+    </ui:define>
+
+	<ui:define name="body">
+
+		<adm:breadcrumb title="Bitcoin" />
+
+		<h:form id="form" prependId="false">
+			
+			<p:fieldset legend="Bitcoins">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="inputId" value="Id" />
+					<p:inputText id="inputId" value="#{bitcoinBean.bitcoin.id}" disabled="true" />
+					
+					<p:outputLabel for="inputOwner" value="Owner" />
+					<p:inputText id="inputOwner" value="#{bitcoinBean.bitcoin.owner}" />
+					
+					<p:outputLabel for="inputQuantity" value="Quantity" />
+					<p:inputText id="inputQuantity" value="#{bitcoinBean.bitcoin.quantity}" />
+				</p:panelGrid>
+				
+				<p:commandButton value="Save" actionListener="#{bitcoinBean.save()}" update="@form" />
+			</p:fieldset>
+			
+			<p:dataTable var="b" value="#{bitcoinBean.list()}" styleClass="box-solid box-primary">
+				<p:column headerText="Id">
+					<h:outputText value="#{b.id}" />
+				</p:column>
+				<p:column headerText="Owner">
+					<h:outputText value="#{b.owner}" />
+				</p:column>
+				<p:column headerText="Price">
+					<h:outputText value="#{b.quantity}" />
+				</p:column>
+				<p:column headerText="Show Audit">
+					<p:commandButton value="Show Audit" actionListener="#{bitcoinBean.showAudit(b)}" update="@form" />
+				</p:column>
+				<p:column headerText="Edit">
+					<p:commandButton value="Edit" actionListener="#{bitcoinBean.prepareEdit(b)}" update="@form" />
+				</p:column>
+				<p:column headerText="Delete">
+					<p:commandButton value="Delete" actionListener="#{bitcoinBean.delete(b)}" />
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>

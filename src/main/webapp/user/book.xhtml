@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Books
+    </ui:define>
+
+	<ui:define name="body">
+
+		<adm:breadcrumb title="Book" />
+
+		<h:form id="form" prependId="false">
+			
+			<p:fieldset legend="Books">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="inputId" value="Id" />
+					<p:inputText id="inputId" value="#{bookBean.book.id}" disabled="true" />
+					
+					<p:outputLabel for="inputTitle" value="Title" />
+					<p:inputText id="inputTitle" value="#{bookBean.book.title}" />
+					
+					<p:outputLabel for="inputPrice" value="Price" />
+					<p:inputText id="inputPrice" value="#{bookBean.book.price}" />
+				</p:panelGrid>
+				
+				<p:commandButton value="Save" actionListener="#{bookBean.save()}" update="@form" />
+			</p:fieldset>
+			
+			<p:dataTable var="b" value="#{bookBean.list()}">
+				<p:column headerText="Title">
+					<h:outputText value="#{b.title}" />
+				</p:column>
+				<p:column headerText="Price">
+					<h:outputText value="#{b.price}" />
+				</p:column>
+				<p:column headerText="Edit">
+					<p:commandButton value="Edit" actionListener="#{bookBean.prepareEdit(b)}" update="@form" />
+				</p:column>
+				<p:column headerText="Delete">
+					<p:commandButton value="Delete" actionListener="#{bookBean.delete(b)}" />
+				</p:column>
+			</p:dataTable>
+			
+			<p:commandButton value="Test Audit" actionListener="#{bookBean.testBasicUsage()}" />
+			
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>
