@@ -2,6 +2,8 @@
 admin-starter-project
 
 
+https://fontawesome.com/v4.7.0/icons/
+
 
 // https://stackoverflow.com/questions/30431035/spring-jpa-repository-dynamic-query
 // https://thoughts-on-java.org/jpa-native-queries/
