@@ -19,3 +19,32 @@ This starter runs via *SpringBoot* using the `maven` command:
 The application will be available at http://localhost:8080/admin-starter
 
   
+sql:
+
+select * 
+FROM post_aud pa
+join revinfo r on r.rev = pa.rev;
+;
+
+select *
+from book_aud ba
+join revinfo r on r.rev = ba.rev;
+
+
+select 
+cre.username, 
+cre.ip, 
+TO_CHAR(TO_TIMESTAMP(cre."timestamp" / 1000), 'DD/MM/YYYY HH24:MI:SS'), 
+ba.rev, 
+ba.owner, 
+ba.quantity 
+from custom_revision_entity cre
+left join bitcoin_aud ba on ba.rev = cre.id
+where 1 = 1
+
+;
+
+
+select *
+from custom_revision_entity cre
+where cre.id = 11;
